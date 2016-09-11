@@ -12,7 +12,7 @@ RHEL=$(shell rpm -q --queryformat '%{VERSION}' centos-release)
 
 #-------------------------------------------------------------------------------
 
-all: info clean compile install-tmp package
+all: info clean compile install-tmp package move
 
 #-------------------------------------------------------------------------------
 
@@ -83,3 +83,9 @@ package:
 		usr/local/bin \
 		usr/local/share \
 	;
+
+	#-------------------------------------------------------------------------------
+
+.PHONY: move
+move:
+	mv *.rpm /vagrant/repo
