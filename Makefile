@@ -1,7 +1,6 @@
 NAME=automake
 VERSION=1.15
-EPOCH=1
-ITERATION=1
+ITERATION=1.lru
 PREFIX=/usr/local
 LICENSE=GPLv2
 VENDOR="Automake contributors"
@@ -67,7 +66,6 @@ package:
 		-v $(VERSION) \
 		-C /tmp/installdir-$(NAME)-$(VERSION) \
 		-m $(MAINTAINER) \
-		--epoch $(EPOCH) \
 		--iteration $(ITERATION) \
 		--license $(LICENSE) \
 		--vendor $(VENDOR) \
