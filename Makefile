@@ -90,4 +90,4 @@ package:
 
 .PHONY: move
 move:
-	mv *.rpm /vagrant/repo
+	[[ -d /vagrant/repo ]] && mv *.rpm /vagrant/repo/
