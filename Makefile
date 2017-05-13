@@ -13,7 +13,7 @@ RHEL=$(shell [[ -f /etc/centos-release ]] && rpm -q --queryformat '%{VERSION}' c
 
 #-------------------------------------------------------------------------------
 
-all: info clean compile install-tmp package move
+all: info clean install-deps compile install-tmp package move
 
 #-------------------------------------------------------------------------------
 
@@ -38,6 +38,15 @@ info:
 .PHONY: clean
 clean:
 	rm -Rf /tmp/installdir* automake*
+
+#-------------------------------------------------------------------------------
+
+.PHONY: install-deps
+install-deps:
+
+	yum -y install \
+		tex \
+	;
 
 #-------------------------------------------------------------------------------
 
