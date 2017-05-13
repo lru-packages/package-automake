@@ -7,7 +7,9 @@ VENDOR="Automake contributors"
 MAINTAINER="Ryan Parman"
 DESCRIPTION="Automake is a tool for automatically generating Makefile.in files compliant with the GNU Coding Standards."
 URL=https://www.gnu.org/software/automake/
-RHEL=$(shell rpm -q --queryformat '%{VERSION}' centos-release)
+ACTUALOS=$(shell osqueryi "select * from os_version;" --json | jq -r ".[].name")
+EL=$(shell if [[ "$(ACTUALOS)" == "Amazon Linux AMI" ]]; then echo alami; else echo el; fi)
+RHEL=$(shell [[ -f /etc/centos-release ]] && rpm -q --queryformat '%{VERSION}' centos-release)
 
 #-------------------------------------------------------------------------------
 
@@ -26,6 +28,8 @@ info:
 	@ echo "MAINTAINER:  $(MAINTAINER)"
 	@ echo "DESCRIPTION: $(DESCRIPTION)"
 	@ echo "URL:         $(URL)"
+	@ echo "OS:          $(ACTUALOS)"
+	@ echo "EL:          $(EL)"
 	@ echo "RHEL:        $(RHEL)"
 	@ echo " "
 
@@ -76,7 +80,7 @@ package:
 		--rpm-digest md5 \
 		--rpm-compression gzip \
 		--rpm-os linux \
-		--rpm-dist el$(RHEL) \
+		--rpm-dist $(EL)$(RHEL) \
 		--rpm-auto-add-directories \
 		usr/local/bin \
 		usr/local/share \
